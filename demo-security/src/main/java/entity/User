@@ -1,0 +1,19 @@
+@Data
+@Entity
+public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer user_id;
+
+    @Column
+    private String name;
+
+    @Column
+    private String password;
+    
+    @ManyToMany(casecade = CascadeType.ALL, fetch = FetchTyPE.EAGER)
+    @JoinTable(name="UserRole",
+        JoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName= "role_id"))
+    private Set<Role> roles = new HashSet<>();
+}
